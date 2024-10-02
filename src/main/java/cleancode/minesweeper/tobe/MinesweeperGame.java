@@ -22,8 +22,10 @@ public class MinesweeperGame {
     public static void main(String[] args) {
         showGameStartComments();
         initializeGame();
+
         while (true) {
             showBoard();
+
             if (doesUserWinTheGame()) {
                 System.out.println("지뢰를 모두 찾았습니다. GAME CLEAR!");
                 break;
@@ -32,6 +34,7 @@ public class MinesweeperGame {
                 System.out.println("지뢰를 밟았습니다. GAME OVER!");
                 break;
             }
+
             String cellInput = getCellInputFromUser();
             String userActionInput = getUserActionInputFromUser();
             actOnCell(cellInput, userActionInput);
@@ -41,17 +44,20 @@ public class MinesweeperGame {
     private static void actOnCell(String cellInput, String userActionInput) {
         int cellInputColIndex = getColIndexFrom(cellInput);
         int cellInputRowIndex = getRowIndexFrom(cellInput);
+
         if (doesUserChooseToPlantFlag(userActionInput)) {
             BOARD[cellInputRowIndex][cellInputColIndex] = FLAG_SIGN;
             checkIfGameIsOver();
             return;
         }
+
         if (doesUserChooseToOpenCell(userActionInput)) {
             if (isLandMineCell(cellInputRowIndex, cellInputColIndex)) {
                 BOARD[cellInputRowIndex][cellInputColIndex] = LAND_MINE_SIGN;
                 changeGameStatusToLose();
                 return;
             }
+
             open(cellInputRowIndex, cellInputColIndex);
             checkIfGameIsOver();
             return;
@@ -169,11 +175,13 @@ public class MinesweeperGame {
                 BOARD[row][col] = CLOSED_CELL_SIGN;
             }
         }
+
         for (int i = 0; i < LAND_MINE_COUNT; i++) {
             int col = new Random().nextInt(BOARD_ROW_SIZE);
             int row = new Random().nextInt(BOARD_ROW_SIZE);
             LAND_MINES[row][col] = true;
         }
+
         for (int row = 0; row < BOARD_ROW_SIZE; row++) {
             for (int col = 0; col < BOARD_ROW_SIZE; col++) {
                 int count = 0;
