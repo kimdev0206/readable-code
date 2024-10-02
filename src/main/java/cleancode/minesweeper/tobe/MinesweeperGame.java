@@ -33,24 +33,29 @@ public class MinesweeperGame {
             }
             String cellInput = getCellInputFromUser(scanner);
             String userActionInput = getUserActionInputFromUser(scanner);
-            int cellInputColIndex = getColIndexFrom(cellInput);
-            int cellInputRowIndex = getRowIndexFrom(cellInput);
-            if (doesUserChooseToPlantFlag(userActionInput)) {
-                BOARD[cellInputRowIndex][cellInputColIndex] = FLAG_SIGN;
-                checkIfGameIsOver();
-            } else if (doesUserChooseToOpenCell(userActionInput)) {
-                if (isLandMineCell(cellInputRowIndex, cellInputColIndex)) {
-                    BOARD[cellInputRowIndex][cellInputColIndex] = LAND_MINE_SIGN;
-                    changeGameStatusToLose();
-                    continue;
-                } else {
-                    open(cellInputRowIndex, cellInputColIndex);
-                }
-                checkIfGameIsOver();
-            } else {
-                System.out.println("잘못된 번호를 선택하셨습니다.");
-            }
+            actOnCell(cellInput, userActionInput);
         }
+    }
+
+    private static void actOnCell(String cellInput, String userActionInput) {
+        int cellInputColIndex = getColIndexFrom(cellInput);
+        int cellInputRowIndex = getRowIndexFrom(cellInput);
+        if (doesUserChooseToPlantFlag(userActionInput)) {
+            BOARD[cellInputRowIndex][cellInputColIndex] = FLAG_SIGN;
+            checkIfGameIsOver();
+            return;
+        }
+        if (doesUserChooseToOpenCell(userActionInput)) {
+            if (isLandMineCell(cellInputRowIndex, cellInputColIndex)) {
+                BOARD[cellInputRowIndex][cellInputColIndex] = LAND_MINE_SIGN;
+                changeGameStatusToLose();
+                return;
+            }
+            open(cellInputRowIndex, cellInputColIndex);
+            checkIfGameIsOver();
+            return;
+        }
+        System.out.println("잘못된 번호를 선택하셨습니다.");
     }
 
     private static void changeGameStatusToWin() {
