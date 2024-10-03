@@ -2,20 +2,22 @@ package cleancode.minesweeper.tobe;
 
 import cleancode.minesweeper.tobe.game.GameInitializable;
 import cleancode.minesweeper.tobe.game.GameRunnable;
-import cleancode.minesweeper.tobe.io.ConsoleInputHandler;
-import cleancode.minesweeper.tobe.io.ConsoleOutputHandler;
+import cleancode.minesweeper.tobe.io.InputHandler;
+import cleancode.minesweeper.tobe.io.OutputHandler;
 import cleancode.minesweeper.tobe.level.Level;
 
 public class Minesweeper implements GameInitializable, GameRunnable {
 
   private final Board board;
   private final BoardIndexConverter boardIndexConverter = new BoardIndexConverter();
-  private final ConsoleInputHandler consoleInputHandler = new ConsoleInputHandler();
-  private final ConsoleOutputHandler consoleOutputHandler = new ConsoleOutputHandler();
+  private final InputHandler inputHandler;
+  private final OutputHandler outputHandler;
   private int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
 
-  public Minesweeper(Level level) {
+  public Minesweeper(Level level, InputHandler inputHandler, OutputHandler outputHandler) {
     board = new Board(level);
+    this.inputHandler = inputHandler;
+    this.outputHandler = outputHandler;
   }
 
   @Override
@@ -25,18 +27,18 @@ public class Minesweeper implements GameInitializable, GameRunnable {
 
   @Override
   public void run() {
-    consoleOutputHandler.showGameStartComments();
+    outputHandler.showGameStartComments();
 
     while (true) {
       try {
-        consoleOutputHandler.showBoard(board);
+        outputHandler.showBoard(board);
 
         if (doesUserWinTheGame()) {
-          consoleOutputHandler.printGameWinningComment();
+          outputHandler.showGameWinningComment();
           break;
         }
         if (doesUserLoseTheGame()) {
-          consoleOutputHandler.printGameLosingComment();
+          outputHandler.showGameLosingComment();
           break;
         }
 
@@ -45,9 +47,9 @@ public class Minesweeper implements GameInitializable, GameRunnable {
         actOnCell(cellInput, userActionInput);
 
       } catch (GameException e) {
-        consoleOutputHandler.printExceptionMessage(e);
+        outputHandler.showExceptionMessage(e);
       } catch (Exception e) {
-        consoleOutputHandler.printSimpleMessage("프로그램에 문제가 생겼습니다.");
+        outputHandler.showSimpleMessage("프로그램에 문제가 생겼습니다.");
       }
     }
   }
@@ -93,13 +95,13 @@ public class Minesweeper implements GameInitializable, GameRunnable {
   }
 
   private String getUserActionInputFromUser() {
-    consoleOutputHandler.printUserActionComment();
-    return consoleInputHandler.getUserInput();
+    outputHandler.showUserActionComment();
+    return inputHandler.getUserInput();
   }
 
   private String getCellInputFromUser() {
-    consoleOutputHandler.printSelectingCellComment();
-    return consoleInputHandler.getUserInput();
+    outputHandler.showSelectingCellComment();
+    return inputHandler.getUserInput();
   }
 
   private boolean doesUserLoseTheGame() {
