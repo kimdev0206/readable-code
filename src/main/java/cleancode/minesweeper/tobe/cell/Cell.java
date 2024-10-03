@@ -10,10 +10,6 @@ public abstract class Cell {
 
   public abstract String getSign();
 
-  public abstract void turnOnLandMine();
-
-  public abstract void updateNearbyLandMineCount(int count);
-
   public abstract boolean isLandMine();
 
   public abstract boolean hasLandMineCount();

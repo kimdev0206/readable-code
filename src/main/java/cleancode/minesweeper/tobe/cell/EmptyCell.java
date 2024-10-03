@@ -18,16 +18,6 @@ public class EmptyCell extends Cell {
   }
 
   @Override
-  public void turnOnLandMine() {
-    throw new UnsupportedOperationException("지원하지 않는 기능입니다.");
-  }
-
-  @Override
-  public void updateNearbyLandMineCount(int count) {
-    throw new UnsupportedOperationException("지원하지 않는 기능입니다.");
-  }
-
-  @Override
   public boolean isLandMine() {
     return false;
   }

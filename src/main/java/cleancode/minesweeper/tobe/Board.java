@@ -32,9 +32,7 @@ public class Board {
     for (int i = 0; i < landMineCount; i++) {
       int landMineRow = new Random().nextInt(getRowSize());
       int landMineCol = new Random().nextInt(getColSize());
-      LandMineCell landMineCell = new LandMineCell();
-      landMineCell.turnOnLandMine();
-      board[landMineRow][landMineCol] = landMineCell;
+      board[landMineRow][landMineCol] = new LandMineCell();
     }
 
     for (int row = 0; row < getRowSize(); row++) {
@@ -46,9 +44,7 @@ public class Board {
         if (count == 0) {
           continue;
         }
-        NumberCell numberCell = new NumberCell();
-        numberCell.updateNearbyLandMineCount(count);
-        board[row][col] = numberCell;
+        board[row][col] = new NumberCell(count);
       }
     }
   }

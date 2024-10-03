@@ -4,8 +4,6 @@ public class LandMineCell extends Cell {
 
   private static final String LAND_MINE_SIGN = "☼";
 
-  private boolean isLandMine;
-
   @Override
   public String getSign() {
     if (isOpened) {
@@ -17,16 +15,6 @@ public class LandMineCell extends Cell {
     }
 
     return UNCHECKED_SIGN;
-  }
-
-  @Override
-  public void turnOnLandMine() {
-    isLandMine = true;
-  }
-
-  @Override
-  public void updateNearbyLandMineCount(int count) {
-    throw new UnsupportedOperationException("지원하지 않는 기능입니다.");
   }
 
   @Override
