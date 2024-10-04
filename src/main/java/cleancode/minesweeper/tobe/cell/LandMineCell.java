@@ -1,16 +1,18 @@
 package cleancode.minesweeper.tobe.cell;
 
-public class LandMineCell extends Cell {
+public class LandMineCell implements Cell {
 
   private static final String LAND_MINE_SIGN = "☼";
 
+  private final State state = State.initialize();
+
   @Override
   public String getSign() {
-    if (isOpened) {
+    if (state.isOpened()) {
       return LAND_MINE_SIGN;
     }
 
-    if (isFlagged) {
+    if (state.isFlagged()) {
       return FLAG_SIGN;
     }
 
@@ -26,4 +28,25 @@ public class LandMineCell extends Cell {
   public boolean hasLandMineCount() {
     return false;
   }
+
+  @Override
+  public void flag() {
+    state.flag();
+  }
+
+  @Override
+  public void open() {
+    state.open();
+  }
+
+  @Override
+  public boolean isChecked() {
+    return state.isChecked();
+  }
+
+  @Override
+  public boolean isOpened() {
+    return state.isOpened();
+  }
+
 }
