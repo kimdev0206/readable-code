@@ -12,8 +12,6 @@ import java.util.stream.IntStream;
 
 public class ConsoleOutputHandler implements OutputHandler {
 
-  public final CellSignFinder cellSignFinder = new CellSignFinder();
-
   private static String generateColAlphabets(Board board) {
     List<String> alphabets = IntStream.range(0, board.getColSize())
       .mapToObj(index -> (char) ('a' + index))
@@ -41,7 +39,7 @@ public class ConsoleOutputHandler implements OutputHandler {
         CellPosition cellPosition = CellPosition.of(row, col);
         CellSnapshot snapshot = board.getSnapshot(cellPosition);
 
-        String sign = cellSignFinder.findCellSignFrom(snapshot);
+        String sign = CellSignProvider.findCellSignFrom(snapshot);
         System.out.print(sign + " ");
       }
       System.out.println();
