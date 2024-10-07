@@ -97,9 +97,9 @@ public class Board {
     return cell.isLandMine();
   }
 
-  public String getSign(CellPosition cellPosition) {
+  public CellSnapshot getSnapshot(CellPosition cellPosition) {
     Cell cell = findCell(cellPosition);
-    return cell.getSign();
+    return cell.getSnapshot();
   }
 
   public int getRowSize() {

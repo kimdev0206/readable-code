@@ -6,14 +6,23 @@ import cleancode.minesweeper.tobe.position.CellPosition;
 import java.util.Scanner;
 
 public class ConsoleInputHandler implements InputHandler {
-
   private static final Scanner SCANNER = new Scanner(System.in);
 
   private final BoardIndexConverter boardIndexConverter = new BoardIndexConverter();
 
   @Override
-  public String getUserInput() {
-    return SCANNER.nextLine();
+  public UserAction getUserActionFromUser() {
+    String userInput = SCANNER.nextLine();
+
+    if ("1".equals(userInput)) {
+      return UserAction.OPEN;
+    }
+
+    if ("2".equals(userInput)) {
+      return UserAction.FLAG;
+    }
+
+    return UserAction.UNKNOWN;
   }
 
   @Override
