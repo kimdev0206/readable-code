@@ -36,8 +36,8 @@ public class CellSnapshot {
     return of(CellSnapshotStatus.UNCHECKED, 0);
   }
 
-  public CellSnapshotStatus getStatus() {
-    return status;
+  public boolean isSameStatus(CellSnapshotStatus status) {
+    return this.status == status;
   }
 
   public int getNearbyLandMineCount() {
