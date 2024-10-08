@@ -13,35 +13,28 @@ public class Minesweeper implements GameInitializable, GameRunnable {
   private final Board board;
   private final InputHandler inputHandler;
   private final OutputHandler outputHandler;
-  private int gameStatus = 0; // 0: 게임 중, 1: 승리, -1: 패배
+  private GameStatus status;
 
   public Minesweeper(Config config) {
     board = new Board(config.getLevel());
     inputHandler = config.getInputHandler();
     outputHandler = config.getOutputHandler();
+    status = GameStatus.IN_PROGRESS;
   }
 
   @Override
   public void initialize() {
     board.initializeGame();
+    status = GameStatus.IN_PROGRESS;
   }
 
   @Override
   public void run() {
     outputHandler.showGameStartComments();
 
-    while (true) {
+    while (status == GameStatus.IN_PROGRESS) {
       try {
         outputHandler.showBoard(board);
-
-        if (doesUserWinTheGame()) {
-          outputHandler.showGameWinningComment();
-          break;
-        }
-        if (doesUserLoseTheGame()) {
-          outputHandler.showGameLosingComment();
-          break;
-        }
 
         CellPosition cellInput = getCellInputFromUser();
         UserAction userAction = getUserActionInputFromUser();
@@ -52,6 +45,15 @@ public class Minesweeper implements GameInitializable, GameRunnable {
       } catch (Exception e) {
         outputHandler.showSimpleMessage("프로그램에 문제가 생겼습니다.");
       }
+    }
+
+    outputHandler.showBoard(board);
+
+    if (doesUserWinTheGame()) {
+      outputHandler.showGameWinningComment();
+    }
+    if (doesUserLoseTheGame()) {
+      outputHandler.showGameLosingComment();
     }
   }
 
@@ -77,11 +79,11 @@ public class Minesweeper implements GameInitializable, GameRunnable {
   }
 
   private void changeGameStatusToWin() {
-    gameStatus = 1;
+    status = GameStatus.WIN;
   }
 
   private void changeGameStatusToLose() {
-    gameStatus = -1;
+    status = GameStatus.LOSE;
   }
 
   private boolean doesUserChooseToOpenCell(UserAction userAction) {
@@ -109,11 +111,11 @@ public class Minesweeper implements GameInitializable, GameRunnable {
   }
 
   private boolean doesUserLoseTheGame() {
-    return gameStatus == -1;
+    return status == GameStatus.LOSE;
   }
 
   private boolean doesUserWinTheGame() {
-    return gameStatus == 1;
+    return status == GameStatus.WIN;
   }
 
   private void checkIfGameIsOver() {
