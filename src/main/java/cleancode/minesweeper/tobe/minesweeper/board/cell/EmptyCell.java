@@ -39,7 +39,7 @@ public class EmptyCell implements Cell {
 
   @Override
   public boolean isChecked() {
-    return state.isChecked();
+    return state.isOpened();
   }
 
   @Override

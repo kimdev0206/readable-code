@@ -39,7 +39,7 @@ public class LandMineCell implements Cell {
 
   @Override
   public boolean isChecked() {
-    return state.isChecked();
+    return state.isFlagged();
   }
 
   @Override
