@@ -1,14 +1,14 @@
 package cleancode.minesweeper.tobe.minesweeper;
 
-import cleancode.minesweeper.tobe.minesweeper.board.Board;
-import cleancode.minesweeper.tobe.minesweeper.config.Config;
-import cleancode.minesweeper.tobe.minesweeper.exception.GameException;
 import cleancode.minesweeper.tobe.game.GameInitializable;
 import cleancode.minesweeper.tobe.game.GameRunnable;
+import cleancode.minesweeper.tobe.minesweeper.board.Board;
+import cleancode.minesweeper.tobe.minesweeper.board.position.CellPosition;
+import cleancode.minesweeper.tobe.minesweeper.config.Config;
+import cleancode.minesweeper.tobe.minesweeper.exception.GameException;
 import cleancode.minesweeper.tobe.minesweeper.io.InputHandler;
 import cleancode.minesweeper.tobe.minesweeper.io.OutputHandler;
 import cleancode.minesweeper.tobe.minesweeper.io.UserAction;
-import cleancode.minesweeper.tobe.minesweeper.board.position.CellPosition;
 
 public class Minesweeper implements GameInitializable, GameRunnable {
 
